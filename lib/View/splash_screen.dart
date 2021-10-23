@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:smart_service/View/login.dart';
 import 'package:smart_service/View/form_login.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -12,6 +11,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  @override
   void initState() {
     super.initState();
     starSplashScreen();
@@ -22,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
     return Timer(duration, () {
       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) {
-        return LoginScreen();
+        return const FormLogin();
       }));
     });
   }
@@ -32,7 +32,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       backgroundColor: Colors.amber,
       body: Center(
-          child: Container(
+          child: SizedBox(
         width: 200,
         height: 200,
         child: Image.asset('asset/logoSS.png'),

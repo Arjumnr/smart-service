@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:smart_service/View/form_kendaraan.dart';
+import 'package:smart_service/View/form_register.dart';
 
-class LoginScreen extends StatefulWidget {
-  LoginScreen({Key? key}) : super(key: key);
-  Duration get loginScreenTime => Duration(milliseconds: 1000);
+class FormLogin extends StatefulWidget {
+  const FormLogin({Key? key}) : super(key: key);
+  // ignore: non_constant_identifier_names
+  Duration get FormLoginTime => const Duration(milliseconds: 1000);
 
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _FormLoginState createState() => _FormLoginState();
 
-  // Future<String> _authUser(LoginScreenData data) {
+  // Future<String> _authUser(FormLoginData data) {
   //   print('Name: ${data.name}, Password: ${data.password}');
-  //   return Future.delayed(loginScreenTime).then((_) {
+  //   return Future.delayed(FormLoginTime).then((_) {
   //     if (!users.containsKey(data.name)) {
   //       return 'User not exists';
   //     }
@@ -21,7 +24,7 @@ class LoginScreen extends StatefulWidget {
   // }
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _FormLoginState extends State<FormLogin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             children: [
               Container(
-                padding: EdgeInsets.only(top: 60.0),
+                padding: const EdgeInsets.only(top: 60.0),
                 width: 200,
                 height: 200,
                 child: Image.asset('asset/logoSS.png'),
@@ -58,9 +61,24 @@ class _LoginScreenState extends State<LoginScreen> {
                     // Navigator.push(
                     //     context,
                     //     MaterialPageRoute(
-                    //         builder: (context) => PilihKendaraan()));
+                    //         builder: (context) => FormKendaraan()));
                   },
-                  child: const Text('Login'),
+                  child: const Text('Sign In'),
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.only(top: 10),
+                width: 200,
+                height: 60,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(primary: Colors.amberAccent),
+                  onPressed: () {
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (context) => const FormRegister()));
+                  },
+                  child: const Text('Sign Up'),
                 ),
               )
             ],
