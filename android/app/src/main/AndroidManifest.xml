@@ -1,12 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.smart_service">
+    <uses-permission android:name="android.permission.INTERNET" />
    <application
         android:label="Smart Service"
-       
-        >
+        android:icon="@mipmap/logoss">
         <activity
             android:name=".MainActivity"
-            android:launchMode="singleTop"
+            android:launchMode="singleTop" 
             android:theme="@style/LaunchTheme"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true"

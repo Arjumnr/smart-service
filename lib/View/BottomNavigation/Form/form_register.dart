@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:smart_service/View/form_login.dart';
+
+import 'form_login.dart';
 
 class FormRegister extends StatefulWidget {
   const FormRegister({Key? key}) : super(key: key);
@@ -9,6 +10,7 @@ class FormRegister extends StatefulWidget {
 }
 
 class _FormRegisterState extends State<FormRegister> {
+  bool _isObscure = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,10 +41,23 @@ class _FormRegisterState extends State<FormRegister> {
               ),
               Container(
                 padding: const EdgeInsets.only(top: 20, left: 50, right: 50),
-                child: const TextField(
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(), label: Text('Password')),
-                ),
+                child: TextField(
+                    obscureText: _isObscure,
+                    obscuringCharacter: "*",
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      label: Text('Password'),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _isObscure ? Icons.visibility : Icons.visibility_off,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _isObscure = !_isObscure;
+                          });
+                        },
+                      ),
+                    )),
               ),
               Container(
                 padding: const EdgeInsets.only(top: 20, left: 50, right: 50),

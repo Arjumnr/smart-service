@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smart_service/View/splash_screen.dart';
+import 'package:smart_service/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,7 +10,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ignore: prefer_const_constructors
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: const SplashScreen(),
