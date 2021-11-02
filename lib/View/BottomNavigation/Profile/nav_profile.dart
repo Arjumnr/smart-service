@@ -39,6 +39,7 @@ class _NavProfileState extends State<NavProfile> {
                         CircleAvatar(
                           radius: 50,
                           // backgroundImage: AssetImage('asset/hino.png'),
+                          // backgroundImage: AssetImage('asset/hino.png'),
                           backgroundColor: Colors.white,
                           child: ClipOval(
                             child: Image.asset('asset/hino.png'),
