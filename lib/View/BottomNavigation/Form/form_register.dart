@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'form_login.dart';
 
@@ -97,7 +98,6 @@ class _FormRegisterState extends State<FormRegister> {
                       border: OutlineInputBorder(), label: Text('No Hp')),
                 ),
               ),
-
               Container(
                 padding: const EdgeInsets.only(top: 10),
                 width: 200,
@@ -134,21 +134,21 @@ class _FormRegisterState extends State<FormRegister> {
                   child: const Text('Sign Up'),
                 ),
               ),
-              // Container(
-              //   padding: const EdgeInsets.only(top: 10),
-              //   width: 200,
-              //   height: 60,
-              //   child: ElevatedButton(
-              //     style: ElevatedButton.styleFrom(primary: Colors.amberAccent),
-              //     onPressed: () {
-              //       Navigator.push(
-              //           context,
-              //           MaterialPageRoute(
-              //               builder: (context) => const FormLogin()));
-              //     },
-              //     child: const Text('Sign In'),
-              //   ),
-              // ),
+              Container(
+                padding: const EdgeInsets.only(top: 10),
+                width: 200,
+                height: 60,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(primary: Colors.amberAccent),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const FormLogin()));
+                  },
+                  child: const Text('Sign In'),
+                ),
+              ),
             ],
           ),
         ));
@@ -184,11 +184,17 @@ class _FormRegisterState extends State<FormRegister> {
         isLoading = false;
       });
       Map<String, dynamic> res = jsonDecode(response.body);
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => FormLogin()));
+
       if (!res['false']) {
         Map<String, dynamic> users = res['data'];
       }
     }
+    Fluttertoast.showToast(
+        msg: 'Register Berhasil',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1);
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => FormLogin()));
   }
 }

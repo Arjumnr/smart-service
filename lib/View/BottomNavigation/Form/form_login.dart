@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:async' as http;
 
 import 'form_kendaraan.dart';
 import 'form_register.dart';
@@ -10,24 +11,13 @@ class FormLogin extends StatefulWidget {
 
   @override
   _FormLoginState createState() => _FormLoginState();
-
-  // Future<String> _authUser(FormLoginData data) {
-  //   print('Name: ${data.name}, Password: ${data.password}');
-  //   return Future.delayed(FormLoginTime).then((_) {
-  //     if (!users.containsKey(data.name)) {
-  //       return 'User not exists';
-  //     }
-  //     if (users[data.name] != data.password) {
-  //       return 'Password does not match';
-  //     }
-  //     return null;
-  //   });
-  // }
 }
 
 class _FormLoginState extends State<FormLogin> {
-  
+  late ScaffoldMessengerState scaffoldMessenger;
+  late String username, password;
   bool _isObscure = true;
+  bool isLoading = false;
   final TextEditingController usernameController = new TextEditingController();
   final TextEditingController passwordController = new TextEditingController();
 
@@ -49,6 +39,10 @@ class _FormLoginState extends State<FormLogin> {
                 Container(
                   padding: const EdgeInsets.only(top: 20, left: 50, right: 50),
                   child: TextFormField(
+                    controller: usernameController,
+                    onSaved: (val) {
+                      username = val!;
+                    },
                     decoration: InputDecoration(
                         prefixIcon: Icon(Icons.person_sharp),
                         border: OutlineInputBorder(),
@@ -58,6 +52,10 @@ class _FormLoginState extends State<FormLogin> {
                 Container(
                   padding: const EdgeInsets.only(top: 20, left: 50, right: 50),
                   child: TextFormField(
+                      controller: passwordController,
+                      onSaved: (val) {
+                        password = val!;
+                      },
                       obscureText: _isObscure,
                       obscuringCharacter: "*",
                       decoration: InputDecoration(
@@ -85,10 +83,20 @@ class _FormLoginState extends State<FormLogin> {
                   height: 60,
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => FormKendaraan()));
+                      if (isLoading) {
+                        return;
+                      }
+                      if (usernameController.text.isEmpty) {
+                        scaffoldMessenger.showSnackBar(
+                            SnackBar(content: Text('Isi Username')));
+                        return;
+                      } else if (passwordController.text.isEmpty) {
+                        scaffoldMessenger.showSnackBar(
+                            SnackBar(content: Text('Isi Password')));
+                        return;
+                      }
+
+                      signIn(usernameController, passwordController);
                     },
                     child: const Text('Sign In'),
                   ),
@@ -113,5 +121,23 @@ class _FormLoginState extends State<FormLogin> {
             ),
           ),
         ));
+  }
+
+  signIn(username, password) async {
+    setState(() {
+      isLoading = true;
+    });
+
+    print('signin');
+
+    Map data = {
+      'username': username,
+      'password': password,
+    };
+    print(data.toString());
+
+    // final response = await http.ge
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => FormKendaraan()));
   }
 }
