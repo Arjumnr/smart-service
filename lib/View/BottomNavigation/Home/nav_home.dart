@@ -14,7 +14,7 @@ class NavHome extends StatefulWidget {
 class _NavHomeState extends State<NavHome> {
   @override
   Widget build(BuildContext context) {
-    final widthMediaQuery = MediaQuery.of(context).size.width;
+    // final widthMediaQuery = MediaQuery.of(context).size.width;
     final heightMediaQuery = MediaQuery.of(context).size.height;
     final paddingApp = MediaQuery.of(context).padding.top;
 

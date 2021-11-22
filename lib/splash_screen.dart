@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import 'View/BottomNavigation/Form/form_login.dart';
+import 'View/BottomNavigation/Form/form_sigin.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -22,9 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
     var duration = const Duration(seconds: 2);
 
     return Timer(duration, () {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) {
-        return const FormLogin();
-      }));
+      Navigator.pushNamed(context, '/signIn');
     });
   }
 

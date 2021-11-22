@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import 'package:smart_service/View/BottomNavigation/bottom_navigation.dart';
+import 'package:smart_service/services.dart';
 
-class FormKendaraan extends StatefulWidget {
-  FormKendaraan({Key? key}) : super(key: key);
+class PilihKendaraan extends StatefulWidget {
+  PilihKendaraan({Key? key}) : super(key: key);
 
   @override
-  _FormKendaraanState createState() => _FormKendaraanState();
+  _PilihKendaraanState createState() => _PilihKendaraanState();
 }
 
 enum SingingCharacter { LD, HD }
 
-class _FormKendaraanState extends State<FormKendaraan> {
+class _PilihKendaraanState extends State<PilihKendaraan> {
   SingingCharacter? _character = SingingCharacter.LD;
+  var id = 3;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,10 +49,15 @@ class _FormKendaraanState extends State<FormKendaraan> {
               }),
           ElevatedButton(
               onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => BottomNavigation()));
+                var kendaraan = _character.toString().split('.').last;
+                if (kendaraan == 'LD') {
+                  kendaraan = 'Hino 110 LD';
+                } else {
+                  kendaraan = 'Hino 130 HD';
+                }
+                print(kendaraan);
+                btnPilihKendaraan(kendaraan, id.toString());
+                print(id);
               },
               child: Text(
                 'Pilih Kendaraan',
@@ -55,5 +65,32 @@ class _FormKendaraanState extends State<FormKendaraan> {
         ],
       ),
     );
+  }
+
+  Future btnPilihKendaraan(kendaraan, id) async {
+    Map mapData = {
+      'merk_transport': kendaraan,
+      'user_id': id,
+    };
+
+    http.Response response =
+        await http.post(Uri.parse(PILIH_KENDARAAN), body: mapData);
+
+    var data = jsonDecode(response.body);
+
+    if (data['status'] == true) {
+      Fluttertoast.showToast(
+          msg: 'Kendaraan ' + kendaraan,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1);
+      Navigator.pushNamed(context, '/bottomNavigation');
+    } else {
+      Fluttertoast.showToast(
+          msg: 'Kendaraan Gagal Ditamabahkan',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1);
+    }
   }
 }

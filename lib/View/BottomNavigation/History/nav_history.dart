@@ -10,9 +10,9 @@ class NavHistory extends StatefulWidget {
 class _NavHistoryState extends State<NavHistory> {
   @override
   Widget build(BuildContext context) {
-    final widthMediaQuery = MediaQuery.of(context).size.width;
-    final heightMediaQuery = MediaQuery.of(context).size.height;
-    final paddingApp = MediaQuery.of(context).padding.top;
+    // final widthMediaQuery = MediaQuery.of(context).size.width;
+    // final heightMediaQuery = MediaQuery.of(context).size.height;
+    // final paddingApp = MediaQuery.of(context).padding.top;
 
     final appBar = AppBar(
       backgroundColor: Colors.amber,
@@ -20,8 +20,8 @@ class _NavHistoryState extends State<NavHistory> {
       title: Center(child: Text('History Service')),
     );
 
-    final bodyHeight =
-        heightMediaQuery - paddingApp - appBar.preferredSize.height;
+    // final bodyHeight =
+    // heightMediaQuery - paddingApp - appBar.preferredSize.height;
     return Scaffold(
         backgroundColor: Colors.amber.shade100,
         appBar: appBar,

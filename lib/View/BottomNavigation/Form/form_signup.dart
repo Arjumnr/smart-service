@@ -3,18 +3,19 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
-import 'form_login.dart';
+import '../../../services.dart';
+import 'form_sigin.dart';
 
-class FormRegister extends StatefulWidget {
-  const FormRegister({Key? key}) : super(key: key);
+class FormSignUp extends StatefulWidget {
+  const FormSignUp({Key? key}) : super(key: key);
 
   @override
-  _FormRegisterState createState() => _FormRegisterState();
+  _FormSignUpState createState() => _FormSignUpState();
 }
 
-class _FormRegisterState extends State<FormRegister> {
+class _FormSignUpState extends State<FormSignUp> {
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
-  final _formKey = GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
   late String namaLengkap, username, password, noHp;
   bool _isObscure = true;
   bool isLoading = false;
@@ -141,10 +142,7 @@ class _FormRegisterState extends State<FormRegister> {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(primary: Colors.amberAccent),
                   onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const FormLogin()));
+                    Navigator.pushNamed(context, '/signIn');
                   },
                   child: const Text('Sign In'),
                 ),
@@ -154,47 +152,35 @@ class _FormRegisterState extends State<FormRegister> {
         ));
   }
 
-  signUp(namaLengkap, username, password, noHp) async {
+  Future signUp(namaLengkap, username, password, noHp) async {
     setState(() {
       isLoading = true;
     });
 
     print('calling');
 
-    Map data = {
+    Map mapData = {
       'nama_lengkap': namaLengkap,
       'username': username,
       'password': password,
       'no_hp': noHp
     };
 
-    print(data.toString());
+    print(mapData.toString());
 
-    final response =
-        await http.post(Uri.parse('http://127.0.0.1:8000/api/register'),
-            headers: {
-              "Accept": "application/json",
-              "Content-Type": "application/x-www-form-urlencoded"
-            },
-            body: data,
-            encoding: Encoding.getByName("utf-8"));
+    http.Response response = await http.post(
+      Uri.parse(REGISTER),
+      body: mapData,
+    );
+    var data = jsonDecode(response.body);
 
-    if (response.statusCode == true) {
-      setState(() {
-        isLoading = false;
-      });
-      Map<String, dynamic> res = jsonDecode(response.body);
+    print("DATA: ${data}");
 
-      if (!res['false']) {
-        Map<String, dynamic> users = res['data'];
-      }
-    }
     Fluttertoast.showToast(
         msg: 'Register Berhasil',
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 1);
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => FormLogin()));
+    Navigator.pushNamed(context, '/signIn');
   }
 }
