@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:smart_service/View/BottomNavigation/Form/form_sigin.dart';
 
 class NavProfile extends StatefulWidget {
   NavProfile({Key? key}) : super(key: key);
@@ -54,15 +56,28 @@ class _NavProfileState extends State<NavProfile> {
           child: Column(
             children: [
               ListTile(
-                leading: Icon(Icons.ac_unit),
+                leading: Icon(
+                  Icons.person,
+                  color: Colors.amber,
+                ),
                 title: Text('Muhammad Almuhaemin'),
                 subtitle: Text('Nama Lengkap'),
-                contentPadding: EdgeInsets.only(bottom: 10),
               ),
               ListTile(
-                leading: Icon(Icons.ac_unit),
+                leading: Icon(
+                  Icons.border_color_outlined,
+                  color: Colors.amber,
+                ),
                 title: Text('Almuhaemin'),
                 subtitle: Text('Username'),
+              ),
+              ListTile(
+                leading: Icon(
+                  Icons.call,
+                  color: Colors.amber,
+                ),
+                title: Text('Almuhaemin'),
+                subtitle: Text('No Hp'),
               ),
             ],
           ),
@@ -78,6 +93,38 @@ class _NavProfileState extends State<NavProfile> {
             children: [
               imageProfil(),
               dataProfil(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    child: ElevatedButton(
+                      child: Text('Edit Proflile'),
+                      onPressed: () {
+                        // Navigator.pushNamed(context, '');
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Container(
+                    child: ElevatedButton(
+                      child: Text('LogOut'),
+                      onPressed: () async {
+                        SharedPreferences prefs =
+                            await SharedPreferences.getInstance();
+                        prefs.remove('username');
+                        Navigator.push(
+                          context,
+                          new MaterialPageRoute(
+                            builder: (BuildContext context) => FormSignIn(),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
         ));

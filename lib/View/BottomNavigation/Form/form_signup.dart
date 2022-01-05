@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import '../../../services.dart';
-import 'form_sigin.dart';
 
 class FormSignUp extends StatefulWidget {
   const FormSignUp({Key? key}) : super(key: key);
@@ -15,11 +14,10 @@ class FormSignUp extends StatefulWidget {
 
 class _FormSignUpState extends State<FormSignUp> {
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
-  final formKey = GlobalKey<FormState>();
+  late ScaffoldMessengerState scaffoldMessenger;
   late String namaLengkap, username, password, noHp;
   bool _isObscure = true;
   bool isLoading = false;
-  late ScaffoldMessengerState scaffoldMessenger;
 
   TextEditingController _namaLengkapController = new TextEditingController();
   TextEditingController _usernameController = new TextEditingController();
@@ -30,6 +28,7 @@ class _FormSignUpState extends State<FormSignUp> {
   Widget build(BuildContext context) {
     scaffoldMessenger = ScaffoldMessenger.of(context);
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         key: _scaffoldKey,
         backgroundColor: Colors.amber.shade50,
         body: SingleChildScrollView(
@@ -91,12 +90,15 @@ class _FormSignUpState extends State<FormSignUp> {
               Container(
                 padding: const EdgeInsets.only(top: 20, left: 50, right: 50),
                 child: TextFormField(
+                  keyboardType: TextInputType.number,
                   controller: _noHpController,
                   onSaved: (val) {
                     noHp = val!;
                   },
                   decoration: InputDecoration(
-                      border: OutlineInputBorder(), label: Text('No Hp')),
+                    border: OutlineInputBorder(),
+                    label: Text('No Hp'),
+                  ),
                 ),
               ),
               Container(
@@ -169,18 +171,26 @@ class _FormSignUpState extends State<FormSignUp> {
     print(mapData.toString());
 
     http.Response response = await http.post(
-      Uri.parse(REGISTER),
+      Uri.parse(SIGNUP),
       body: mapData,
     );
     var data = jsonDecode(response.body);
 
     print("DATA: ${data}");
 
-    Fluttertoast.showToast(
-        msg: 'Register Berhasil',
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1);
-    Navigator.pushNamed(context, '/signIn');
+    if (data['status'] == true) {
+      Fluttertoast.showToast(
+          msg: 'Register Berhasil',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1);
+      Navigator.pushNamed(context, '/signIn');
+    } else {
+      Fluttertoast.showToast(
+          msg: data['message'],
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1);
+    }
   }
 }

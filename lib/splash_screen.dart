@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:smart_service/View/BottomNavigation/Form/form_sigin.dart';
 
-import 'View/BottomNavigation/Form/form_sigin.dart';
+import 'View/BottomNavigation/bottom_navigation.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -22,8 +24,18 @@ class _SplashScreenState extends State<SplashScreen> {
     var duration = const Duration(seconds: 2);
 
     return Timer(duration, () {
-      Navigator.pushNamed(context, '/signIn');
+      navigateUser();
     });
+  }
+
+  navigateUser() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var id = prefs.getInt('id');
+    print(id);
+    runApp(MaterialApp(
+      home: id == null ? FormSignIn() : BottomNavigation(),
+    ));
   }
 
   @override
