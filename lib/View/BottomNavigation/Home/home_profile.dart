@@ -26,26 +26,6 @@ class _HomeProfileState extends State<HomeProfile> {
 
   @override
   Widget build(BuildContext context) {
-    // return Scaffold(
-    //   backgroundColor: Colors.amber,
-    //   body: Container(
-    //       child: FutureBuilder<Map<String, dynamic>>(
-    //           future: _fetchDataUser(),
-    //           builder: (BuildContext context, AsyncSnapshot snapshot) {
-    //             if (snapshot.hasData) {
-    //               return ListView.builder(
-    //                   itemCount: snapshot.data.length,
-    //                   itemBuilder: (BuildContext context, int index) {
-    //                     // print(snapshot.data['data']['nama_lengkap']);
-    //                     return ListTile(
-    //                         title: Text(snapshot.data['data']['nama_lengkap']));
-    //                   });
-    //             } else {
-    //               return Center(child: CircularProgressIndicator());
-    //             }
-    //           })),
-    // );
-
     return Scaffold(
       backgroundColor: Colors.amber,
       body: Center(

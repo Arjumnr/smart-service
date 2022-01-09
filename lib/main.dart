@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smart_service/View/BottomNavigation/Form/form_sigin.dart';
 import 'package:smart_service/View/BottomNavigation/Form/form_signup.dart';
-import 'package:smart_service/View/BottomNavigation/Profile/nav_profile.dart';
 import 'package:smart_service/View/BottomNavigation/bottom_navigation.dart';
 import 'package:smart_service/splash_screen.dart';
 import 'View/BottomNavigation/Form/form_kendaraan.dart';
@@ -20,11 +18,6 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   @override
-  // void initState() {
-  //   super.initState();
-  //   getPref();
-  // }
-
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,

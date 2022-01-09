@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_login/flutter_login.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:smart_service/Model/model_user.dart';
 import 'package:smart_service/View/BottomNavigation/bottom_navigation.dart';
 import 'dart:convert';
 import '../../../services.dart';
