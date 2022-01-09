@@ -22,12 +22,6 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: SplashScreen(),
-      routes: <String, WidgetBuilder>{
-        '/signIn': (BuildContext) => new FormSignIn(),
-        '/signUp': (BuildContext) => new FormSignUp(),
-        '/pilihKendaraan': (BuildContext) => new PilihKendaraan(),
-        '/bottomNavigation': (BuildContext) => new BottomNavigation(),
-      },
     );
   }
 }

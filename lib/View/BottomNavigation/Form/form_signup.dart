@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import '../../../services.dart';
+import 'form_sigin.dart';
 
 class FormSignUp extends StatefulWidget {
   const FormSignUp({Key? key}) : super(key: key);
@@ -184,7 +185,8 @@ class _FormSignUpState extends State<FormSignUp> {
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 1);
-      Navigator.pushNamed(context, '/signIn');
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (BuildContext ctx) => FormSignIn()));
     } else {
       Fluttertoast.showToast(
           msg: data['message'],

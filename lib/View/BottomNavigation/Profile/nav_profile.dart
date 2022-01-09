@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:skeleton_text/skeleton_text.dart';
 import 'package:smart_service/View/BottomNavigation/Form/form_sigin.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -34,27 +35,49 @@ class _NavProfileState extends State<NavProfile> {
     imageProfil() {
       return Container(
         height: MediaQuery.of(context).size.height * 0.2,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CircleAvatar(
-              radius: 50,
-              backgroundColor: Colors.white,
-              child: ClipOval(
-                child: Image.asset('asset/hino.png'),
-              ),
-            ),
-            Text('Hino 110 LD'),
-          ],
-        ),
-      );
-    }
-
-    Widget box() {
-      return Container(
-        height: 300,
-        width: 500,
-        color: Colors.grey,
+        child: FutureBuilder<Map<String, dynamic>>(
+            future: _fetchDataUser(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircleAvatar(
+                      radius: 50,
+                      backgroundColor: Colors.white,
+                      child: ClipOval(
+                        child: Image.asset('asset/hino.png'),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(snapshot.data!['data']['transports_id'].toString()),
+                  ],
+                );
+              } else {
+                return Shimmer.fromColors(
+                  baseColor: Colors.grey.shade300,
+                  highlightColor: Colors.white,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CircleAvatar(
+                        radius: 50,
+                        backgroundColor: Colors.white,
+                        child: ClipOval(
+                          child: Image.asset('asset/hino.png'),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text('   '),
+                    ],
+                  ),
+                );
+              }
+            }),
       );
     }
 
@@ -161,7 +184,8 @@ class _NavProfileState extends State<NavProfile> {
                   onPressed: () async {
                     SharedPreferences prefs =
                         await SharedPreferences.getInstance();
-                    prefs.remove('username');
+                    prefs.remove('id');
+                    print('LOGOUT');
                     Navigator.push(
                       context,
                       new MaterialPageRoute(

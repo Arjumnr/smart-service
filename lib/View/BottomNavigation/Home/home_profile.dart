@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:smart_service/services.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -36,6 +37,8 @@ class _HomeProfileState extends State<HomeProfile> {
             future: _fetchDataUser(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
+                // var kendaraan = snapshot.data!['data']['transports_id'].toString();
+                // if(kendaraan == null)
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -44,48 +47,34 @@ class _HomeProfileState extends State<HomeProfile> {
                       style: textNama,
                     ),
                     Text(
-                      snapshot.data!['data']['no_hp'],
+                      snapshot.data!['data']['transports_id'].toString(),
                       style: textMerk,
                     )
                   ],
                 );
               } else {
-                return Center(child: CircularProgressIndicator());
+                return Shimmer.fromColors(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        '',
+                        style: textNama,
+                      ),
+                      Text(
+                        '',
+                        style: textMerk,
+                      )
+                    ],
+                  ),
+                  baseColor: Colors.grey.shade300,
+                  highlightColor: Colors.white,
+                );
               }
             },
           ),
         ),
       ),
     );
-
-    // return Scaffold(
-    //   backgroundColor: Colors.amber.shade100,
-    //   body: Container(
-    //     decoration: BoxDecoration(
-    //         borderRadius: BorderRadius.circular(5), color: Colors.amber),
-    //     child: Column(
-    //       mainAxisAlignment: MainAxisAlignment.center,
-    //       children: [
-    //         Row(
-    //           mainAxisAlignment: MainAxisAlignment.center,
-    //           children: [
-    //             Column(
-    //               children: [
-    //                 Text(
-    //                   'Muhammad Almuhaemin Ismail',
-    //                   style: textNama,
-    //                 ),
-    //                 Text(
-    //                   'Hino 110 LD',
-    //                   style: textMerk,
-    //                 ),
-    //               ],
-    //             )
-    //           ],
-    //         ),
-    //       ],
-    //     ),
-    //   ),
-    // );
   }
 }

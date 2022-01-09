@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:smart_service/View/BottomNavigation/Form/form_kendaraan.dart';
+import 'package:smart_service/View/BottomNavigation/Form/form_signup.dart';
 import 'package:smart_service/View/BottomNavigation/bottom_navigation.dart';
 import 'dart:convert';
 import '../../../services.dart';
@@ -48,19 +50,30 @@ class _FormSignInState extends State<FormSignIn> {
 
       print("DATA: ${data}");
 
-      //SIMPAN DATA ID DI LOKAL
-      var dataID = data['data']['id'];
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setInt('id', dataID);
-      Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (BuildContext ctx) => BottomNavigation()));
-
       if (data['status'] == true) {
         Fluttertoast.showToast(
             msg: 'Login Berhasil',
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             timeInSecForIosWeb: 1);
+
+        //SIMPAN DATA ID DI LOKAL
+        var dataID = data['data']['id'];
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setInt('id', dataID);
+
+        var dataKendaraan = data['data']['transports_id'];
+        if (dataKendaraan == null) {
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (BuildContext ctx) => PilihKendaraan()));
+        } else {
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (BuildContext ctx) => BottomNavigation()));
+        }
       } else {
         Fluttertoast.showToast(
             msg: data['message'],
@@ -156,7 +169,10 @@ class _FormSignInState extends State<FormSignIn> {
                     style:
                         ElevatedButton.styleFrom(primary: Colors.amberAccent),
                     onPressed: () {
-                      Navigator.pushNamed(context, '/signUp');
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext ctx) => FormSignUp()));
                     },
                     child: const Text('Sign Up'),
                   ),

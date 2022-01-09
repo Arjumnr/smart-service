@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:smart_service/View/BottomNavigation/Form/form_sigin.dart';
 import 'dart:convert';
 import 'package:smart_service/services.dart';
+
+import '../bottom_navigation.dart';
 
 class PilihKendaraan extends StatefulWidget {
   PilihKendaraan({Key? key}) : super(key: key);
@@ -15,7 +19,7 @@ enum SingingCharacter { LD, HD }
 
 class _PilihKendaraanState extends State<PilihKendaraan> {
   SingingCharacter? _character = SingingCharacter.LD;
-  var id = 3;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,8 +59,7 @@ class _PilihKendaraanState extends State<PilihKendaraan> {
                   kendaraan = 'Hino 130 HD';
                 }
                 print(kendaraan);
-                btnPilihKendaraan(kendaraan, id.toString());
-                print(id);
+                btnPilihKendaraan(kendaraan);
               },
               child: Text(
                 'Pilih Kendaraan',
@@ -66,7 +69,9 @@ class _PilihKendaraanState extends State<PilihKendaraan> {
     );
   }
 
-  Future btnPilihKendaraan(kendaraan, id) async {
+  Future btnPilihKendaraan(kendaraan) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    var id = pref.getInt('id').toString();
     Map mapData = {
       'merk_transport': kendaraan,
       'user_id': id,
@@ -77,13 +82,17 @@ class _PilihKendaraanState extends State<PilihKendaraan> {
 
     var data = jsonDecode(response.body);
 
+    var dataKendaraan = data['data']['merk_kendaraan'];
+
     if (data['status'] == true) {
       Fluttertoast.showToast(
           msg: 'Kendaraan ' + kendaraan,
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 1);
-      Navigator.pushNamed(context, '/bottomNavigation');
+
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (BuildContext ctx) => BottomNavigation()));
     } else {
       Fluttertoast.showToast(
           msg: 'Kendaraan Gagal Ditamabahkan',
