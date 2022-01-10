@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:skeleton_text/skeleton_text.dart';
 import 'package:smart_service/services.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -25,6 +26,14 @@ class _HomeProfileState extends State<HomeProfile> {
     return json.decode(response.body);
   }
 
+  text() {
+    return SkeletonAnimation(
+      gradientColor: Color.fromARGB(0, 244, 244, 244),
+      shimmerColor: Colors.white54,
+      child: Text(''),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,8 +46,6 @@ class _HomeProfileState extends State<HomeProfile> {
             future: _fetchDataUser(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                // var kendaraan = snapshot.data!['data']['transports_id'].toString();
-                // if(kendaraan == null)
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -57,13 +64,9 @@ class _HomeProfileState extends State<HomeProfile> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        '',
-                        style: textNama,
-                      ),
-                      Text(
-                        '',
-                        style: textMerk,
+                      ListTile(
+                        title: text(),
+                        subtitle: text(),
                       )
                     ],
                   ),

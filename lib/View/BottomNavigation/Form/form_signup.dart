@@ -28,7 +28,13 @@ class _FormSignUpState extends State<FormSignUp> {
   @override
   Widget build(BuildContext context) {
     scaffoldMessenger = ScaffoldMessenger.of(context);
+    final appBar = AppBar(
+      backgroundColor: Colors.amber,
+      automaticallyImplyLeading: false,
+      title: Center(child: Text('Edit Profile')),
+    );
     return Scaffold(
+        appBar: appBar,
         resizeToAvoidBottomInset: false,
         key: _scaffoldKey,
         backgroundColor: Colors.amber.shade50,

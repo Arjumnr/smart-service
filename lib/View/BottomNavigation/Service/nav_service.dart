@@ -28,68 +28,89 @@ class _NavServiceState extends State<NavService> {
       body: Container(
         child: Column(
           children: [
-            Container(
-              height: bodyHeight * 0.3,
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              alignment: Alignment.center,
-              child: Card(
-                color: Colors.yellow.shade200,
-                child: Container(
-                  width: widthMediaQuery / 1,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CircleAvatar(
-                        radius: 50,
-                        backgroundImage: AssetImage('asset/ban.png'),
-                        backgroundColor: Colors.transparent,
-                      ),
-                      Text('Service Ban')
-                    ],
+            ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.amberAccent),
+              ),
+              onPressed: () {},
+              child: Container(
+                height: bodyHeight * 0.3,
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                alignment: Alignment.center,
+                child: Card(
+                  color: Colors.yellow.shade200,
+                  child: Container(
+                    width: widthMediaQuery / 1,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CircleAvatar(
+                          radius: 50,
+                          backgroundImage: AssetImage('asset/ban.png'),
+                          backgroundColor: Colors.transparent,
+                        ),
+                        Text('Service Ban')
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
-            Container(
-              height: bodyHeight * 0.3,
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              alignment: Alignment.center,
-              child: Card(
-                color: Colors.yellow.shade200,
-                child: Container(
-                  width: widthMediaQuery / 1,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CircleAvatar(
-                        radius: 50,
-                        backgroundImage: AssetImage('asset/oli.png'),
-                        backgroundColor: Colors.transparent,
-                      ),
-                      Text('Service Oli')
-                    ],
+            ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.amberAccent),
+              ),
+              onPressed: () {},
+              child: Container(
+                height: bodyHeight * 0.3,
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                alignment: Alignment.center,
+                child: Card(
+                  color: Colors.yellow.shade200,
+                  child: Container(
+                    width: widthMediaQuery / 1,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CircleAvatar(
+                          radius: 50,
+                          backgroundImage: AssetImage('asset/oli.png'),
+                          backgroundColor: Colors.transparent,
+                        ),
+                        Text('Service Ban')
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
-            Container(
-              height: bodyHeight * 0.3,
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              alignment: Alignment.center,
-              child: Card(
-                color: Colors.yellow.shade200,
-                child: Container(
-                  width: widthMediaQuery / 1,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CircleAvatar(
-                        radius: 50,
-                        backgroundImage: AssetImage('asset/rem.png'),
-                        backgroundColor: Colors.transparent,
-                      ),
-                      Text('Service Rem')
-                    ],
+            ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.amberAccent),
+              ),
+              onPressed: () {},
+              child: Container(
+                height: bodyHeight * 0.3,
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                alignment: Alignment.center,
+                child: Card(
+                  color: Colors.yellow.shade200,
+                  child: Container(
+                    width: widthMediaQuery / 1,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CircleAvatar(
+                          radius: 50,
+                          backgroundImage: AssetImage('asset/rem.png'),
+                          backgroundColor: Colors.transparent,
+                        ),
+                        Text('Service Ban')
+                      ],
+                    ),
                   ),
                 ),
               ),

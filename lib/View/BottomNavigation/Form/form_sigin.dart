@@ -177,11 +177,11 @@ class _FormSignInState extends State<FormSignIn> {
                     child: const Text('Sign Up'),
                   ),
                 ),
-                // Visibility(
-                //     visible: isLoading,
-                //     child: Container(
-                //         margin: EdgeInsets.all(30),
-                //         child: CircularProgressIndicator())),
+                Visibility(
+                    visible: isLoading,
+                    child: Container(
+                        margin: EdgeInsets.all(30),
+                        child: CircularProgressIndicator())),
               ],
             ),
           ),

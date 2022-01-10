@@ -4,6 +4,7 @@ import 'package:shimmer/shimmer.dart';
 import 'package:skeleton_text/skeleton_text.dart';
 import 'package:smart_service/View/BottomNavigation/Form/form_sigin.dart';
 import 'package:http/http.dart' as http;
+import 'package:smart_service/View/BottomNavigation/Profile/edit_profile.dart';
 import 'dart:convert';
 import '../../../services.dart';
 
@@ -31,6 +32,14 @@ class _NavProfileState extends State<NavProfile> {
       automaticallyImplyLeading: false,
       title: Center(child: Text('Profile')),
     );
+
+    text() {
+      return SkeletonAnimation(
+        gradientColor: Color.fromARGB(0, 244, 244, 244),
+        shimmerColor: Colors.white54,
+        child: Text(''),
+      );
+    }
 
     imageProfil() {
       return Container(
@@ -72,7 +81,7 @@ class _NavProfileState extends State<NavProfile> {
                       SizedBox(
                         height: 10,
                       ),
-                      Text('   '),
+                      text(),
                     ],
                   ),
                 );
@@ -129,24 +138,24 @@ class _NavProfileState extends State<NavProfile> {
                             Icons.person,
                             color: Colors.amber,
                           ),
-                          title: Text(''),
-                          subtitle: Text(''),
+                          title: text(),
+                          subtitle: text(),
                         ),
                         ListTile(
                           leading: Icon(
                             Icons.border_color_outlined,
                             color: Colors.amber,
                           ),
-                          title: Text(''),
-                          subtitle: Text(''),
+                          title: text(),
+                          subtitle: text(),
                         ),
                         ListTile(
                           leading: Icon(
                             Icons.call,
                             color: Colors.amber,
                           ),
-                          title: Text(''),
-                          subtitle: Text(''),
+                          title: text(),
+                          subtitle: text(),
                         ),
                       ],
                     ),
@@ -171,7 +180,8 @@ class _NavProfileState extends State<NavProfile> {
                 child: ElevatedButton(
                   child: Text('Edit Proflile'),
                   onPressed: () {
-                    // Navigator.pushNamed(context, '');
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (BuildContext ctx) => EditProfile()));
                   },
                 ),
               ),
@@ -186,7 +196,7 @@ class _NavProfileState extends State<NavProfile> {
                         await SharedPreferences.getInstance();
                     prefs.remove('id');
                     print('LOGOUT');
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
                       new MaterialPageRoute(
                         builder: (BuildContext context) => FormSignIn(),
@@ -204,6 +214,8 @@ class _NavProfileState extends State<NavProfile> {
     return Scaffold(
         backgroundColor: Colors.amber.shade100,
         appBar: appBar,
-        body: SafeArea(child: body()));
+        body: SafeArea(
+          child: body(),
+        ));
   }
 }

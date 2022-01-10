@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smart_service/View/BottomNavigation/Form/form_sigin.dart';
-import 'package:smart_service/View/BottomNavigation/Form/form_signup.dart';
-import 'package:smart_service/View/BottomNavigation/bottom_navigation.dart';
 import 'package:smart_service/splash_screen.dart';
-import 'View/BottomNavigation/Form/form_kendaraan.dart';
 
 void main() {
   runApp(const MyApp());
