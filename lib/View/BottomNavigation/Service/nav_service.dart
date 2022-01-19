@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class NavService extends StatefulWidget {
   NavService({Key? key}) : super(key: key);
@@ -8,6 +10,18 @@ class NavService extends StatefulWidget {
 }
 
 class _NavServiceState extends State<NavService> {
+  List data = [];
+  Future<dynamic> getData() async {
+    var response = await http.get(
+        Uri.parse("https://jsonplaceholder.typicode.com/posts"),
+        headers: {"Accept": "application/json"});
+
+    data = jsonDecode(response.body);
+    print(data);
+
+    return data;
+  }
+
   @override
   Widget build(BuildContext context) {
     final widthMediaQuery = MediaQuery.of(context).size.width;
@@ -22,6 +36,7 @@ class _NavServiceState extends State<NavService> {
 
     final bodyHeight =
         heightMediaQuery - paddingApp - appBar.preferredSize.height;
+
     return Scaffold(
       appBar: appBar,
       backgroundColor: Colors.amberAccent,
@@ -33,7 +48,15 @@ class _NavServiceState extends State<NavService> {
                 backgroundColor:
                     MaterialStateProperty.all<Color>(Colors.amberAccent),
               ),
-              onPressed: () {},
+              onPressed: () {
+                ListView.builder(
+                    itemCount: data == null ? 0 : data.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Card(
+                        child: Text(data[index]["title"]),
+                      );
+                    });
+              },
               child: Container(
                 height: bodyHeight * 0.3,
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
