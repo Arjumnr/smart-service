@@ -61,7 +61,8 @@ class _NavProfileState extends State<NavProfile> {
                     SizedBox(
                       height: 10,
                     ),
-                    Text(snapshot.data!['data']['transports_id'].toString()),
+                    Text(
+                        snapshot.data!['data']['transports']['merk_transport']),
                   ],
                 );
               } else {

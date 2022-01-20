@@ -81,7 +81,7 @@ class _PilihKendaraanState extends State<PilihKendaraan> {
 
     var data = jsonDecode(response.body);
 
-    var dataKendaraan = data['data']['merk_kendaraan'];
+    // var dataKendaraan = data['data']['merk_kendaraan'];
 
     if (data['status'] == true) {
       Fluttertoast.showToast(

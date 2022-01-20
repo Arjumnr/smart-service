@@ -54,7 +54,7 @@ class _HomeProfileState extends State<HomeProfile> {
                       style: textNama,
                     ),
                     Text(
-                      snapshot.data!['data']['transports_id'].toString(),
+                      snapshot.data!['data']['transports']['merk_transport'],
                       style: textMerk,
                     )
                   ],
