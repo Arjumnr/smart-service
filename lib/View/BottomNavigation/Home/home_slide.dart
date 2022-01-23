@@ -6,14 +6,13 @@ class HomeSlide extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.amber.shade50,
-      body: Container(
-        padding: EdgeInsets.symmetric(vertical: 1),
+      body: Center(
         child: ListView(
+          shrinkWrap: true,
           children: [
             CarouselSlider(
               items: [
                 Container(
-                  // margin: EdgeInsets.all(6.0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8.0),
                     image: DecorationImage(
@@ -23,7 +22,6 @@ class HomeSlide extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  // margin: EdgeInsets.all(6.0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8.0),
                     image: DecorationImage(
@@ -33,7 +31,6 @@ class HomeSlide extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  // margin: EdgeInsets.all(6.0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8.0),
                     image: DecorationImage(

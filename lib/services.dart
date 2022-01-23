@@ -8,3 +8,4 @@ var PILIH_KENDARAAN = onlineURL + 'pilihKendaraan';
 var SIGNUP = onlineURL + 'signUp';
 var SHOW_USER = onlineURL + 'users';
 var UPDATE_USER = onlineURL + 'users-update';
+var SHOW_ALL_BAN = onlineURL + 'ban';

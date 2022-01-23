@@ -27,25 +27,29 @@ class _NavHomeState extends State<NavHome> {
         heightMediaQuery - paddingApp - appBar.preferredSize.height;
 
     return Scaffold(
+      appBar: appBar,
       backgroundColor: Colors.amber.shade100,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              height: bodyHeight * 0.2,
-              padding: EdgeInsets.fromLTRB(4, paddingApp, 4, 4),
-              child: HomeProfile(),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Container(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  height: 100,
+                  child: HomeProfile(),
+                ),
+                Container(
+                  height: bodyHeight * 0.3,
+                  child: HomeSlide(),
+                ),
+                Container(
+                  height: bodyHeight * 0.4,
+                  child: HomeStatusService(),
+                ),
+              ],
             ),
-            Container(
-              height: bodyHeight * 0.3,
-              child: HomeSlide(),
-            ),
-            Container(
-              height: bodyHeight * 0.5,
-              padding: EdgeInsets.symmetric(horizontal: 5),
-              child: HomeStatusService(),
-            ),
-          ],
+          ),
         ),
       ),
     );

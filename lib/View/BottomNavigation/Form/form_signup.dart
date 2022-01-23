@@ -31,7 +31,7 @@ class _FormSignUpState extends State<FormSignUp> {
     final appBar = AppBar(
       backgroundColor: Colors.amber,
       automaticallyImplyLeading: false,
-      title: Center(child: Text('Edit Profile')),
+      title: Center(child: Text('Sign Up')),
     );
     return Scaffold(
         appBar: appBar,
@@ -151,7 +151,10 @@ class _FormSignUpState extends State<FormSignUp> {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(primary: Colors.amberAccent),
                   onPressed: () {
-                    Navigator.pushNamed(context, '/signIn');
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext ctx) => FormSignIn()));
                   },
                   child: const Text('Sign In'),
                 ),

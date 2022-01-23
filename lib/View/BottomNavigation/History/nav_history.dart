@@ -37,13 +37,13 @@ class _NavHistoryState extends State<NavHistory> {
                   title: Text(
                     'Ban',
                   ),
-                  subtitle: Text('GT Savero Komodo Extreme'),
+                  subtitle: Text('GT Radial'),
                   leading: CircleAvatar(
                     radius: 40.0,
                     backgroundImage: AssetImage('asset/ban.png'),
                     backgroundColor: Colors.amber.shade50,
                   ),
-                  trailing: Text(' 28-10-2021'),
+                  trailing: Text('10-01-2022'),
                 ),
               ),
             ])));

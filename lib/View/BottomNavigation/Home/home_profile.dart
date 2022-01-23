@@ -36,12 +36,23 @@ class _HomeProfileState extends State<HomeProfile> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    final heightMediaQuery = MediaQuery.of(context).size.height;
+    final paddingApp = MediaQuery.of(context).padding.top;
+
+    final appBar = AppBar(
       backgroundColor: Colors.amber,
-      body: Center(
+      automaticallyImplyLeading: false,
+      title: Center(child: Text('')),
+    );
+
+    return Scaffold(
+      body: SafeArea(
         child: Container(
+          width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5), color: Colors.amber),
+            borderRadius: BorderRadius.circular(7),
+            color: Colors.amber,
+          ),
           child: FutureBuilder<Map<String, dynamic>>(
             future: _fetchDataUser(),
             builder: (context, snapshot) {

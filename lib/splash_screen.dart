@@ -34,6 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
     var id = prefs.getInt('id');
     print(id);
     runApp(MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: id == null ? FormSignIn() : BottomNavigation(),
     ));
   }

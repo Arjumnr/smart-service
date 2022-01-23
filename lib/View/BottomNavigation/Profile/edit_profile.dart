@@ -59,6 +59,14 @@ class _EditProfileState extends State<EditProfile> {
     );
     //
     //
+
+    //UPDATE USER
+    updateUser() async {
+      setState(() {
+        Map mapData = {};
+      });
+    }
+
     return Scaffold(
         appBar: appBar,
         body: SingleChildScrollView(
@@ -66,8 +74,6 @@ class _EditProfileState extends State<EditProfile> {
             future: _fetchDataUser(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                var pw = snapshot.data!['data']['password'];
-
                 //
                 return Column(
                   children: [
@@ -113,7 +119,7 @@ class _EditProfileState extends State<EditProfile> {
                           obscuringCharacter: "*",
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
-                            label: Text(pw),
+                            label: Text('******'),
                             suffixIcon: IconButton(
                               icon: Icon(
                                 _isObscure
@@ -152,28 +158,28 @@ class _EditProfileState extends State<EditProfile> {
                       height: 60,
                       child: ElevatedButton(
                         onPressed: () {
-                          if (isLoading) {
-                            return;
-                          }
-                          if (_namaLengkapController.text.isEmpty) {
-                            scaffoldMessenger.showSnackBar(
-                                SnackBar(content: Text('Isi Nama Lengkap')));
-                            return;
-                          } else if (_usernameController.text.isEmpty) {
-                            scaffoldMessenger.showSnackBar(
-                                SnackBar(content: Text('Isi Username')));
-                            return;
-                          } else if (_passwordController.text.isEmpty) {
-                            scaffoldMessenger.showSnackBar(
-                                SnackBar(content: Text('Isi Password')));
-                            return;
-                          } else if (_noHpController.text.isEmpty) {
-                            scaffoldMessenger.showSnackBar(
-                                SnackBar(content: Text('Isi No Hp')));
-                            return;
-                          }
+                          // if (isLoading) {
+                          //   return;
+                          // }
+                          // if (_namaLengkapController.text.isEmpty) {
+                          //   scaffoldMessenger.showSnackBar(
+                          //       SnackBar(content: Text('Isi Nama Lengkap')));
+                          //   return;
+                          // } else if (_usernameController.text.isEmpty) {
+                          //   scaffoldMessenger.showSnackBar(
+                          //       SnackBar(content: Text('Isi Username')));
+                          //   return;
+                          // } else if (_passwordController.text.isEmpty) {
+                          //   scaffoldMessenger.showSnackBar(
+                          //       SnackBar(content: Text('Isi Password')));
+                          //   return;
+                          // } else if (_noHpController.text.isEmpty) {
+                          //   scaffoldMessenger.showSnackBar(
+                          //       SnackBar(content: Text('Isi No Hp')));
+                          //   return;
+                          // }
 
-                          // signUp(
+                          // updateUser(
                           //     _namaLengkapController.text,
                           //     _usernameController.text,
                           //     _passwordController.text,
