@@ -1,11 +1,14 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:shimmer/shimmer.dart';
 import 'package:skeleton_text/skeleton_text.dart';
+import 'package:smart_service/View/BottomNavigation/Profile/nav_profile.dart';
 import '../../../services.dart';
+import '../bottom_navigation.dart';
 
 class EditProfile extends StatefulWidget {
   EditProfile({Key? key}) : super(key: key);
@@ -13,6 +16,8 @@ class EditProfile extends StatefulWidget {
   @override
   _EditProfileState createState() => _EditProfileState();
 }
+
+late String namaLengkap, username, password, noHp;
 
 Future<Map<String, dynamic>> _fetchDataUser() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -31,7 +36,6 @@ text() {
   );
 }
 
-late String namaLengkap, username, password, noHp;
 bool _isObscure = true;
 bool isLoading = false;
 
@@ -61,10 +65,39 @@ class _EditProfileState extends State<EditProfile> {
     //
 
     //UPDATE USER
-    updateUser() async {
-      setState(() {
-        Map mapData = {};
-      });
+    updateUser(namaLengkap, username, password, noHp) async {
+      SharedPreferences pref = await SharedPreferences.getInstance();
+      var id = pref.getInt('id').toString();
+      print(id);
+
+      setState(
+        () {},
+      );
+
+      Map mapData = {
+        'nama_lengkap': namaLengkap,
+        'username': username,
+        'password': password,
+        'no_hp': noHp
+      };
+
+      print(mapData.toString());
+
+      http.Response response = await http.put(
+        Uri.parse(UPDATE_USER + '/${id}'),
+        body: mapData,
+      );
+
+      var res = json.encode(response.body);
+      var data = json.decode(res);
+      print(data);
+      Fluttertoast.showToast(
+          msg: 'Update Berhasil',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1);
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (BuildContext ctx) => BottomNavigation()));
     }
 
     return Scaffold(
@@ -158,32 +191,32 @@ class _EditProfileState extends State<EditProfile> {
                       height: 60,
                       child: ElevatedButton(
                         onPressed: () {
-                          // if (isLoading) {
-                          //   return;
-                          // }
-                          // if (_namaLengkapController.text.isEmpty) {
-                          //   scaffoldMessenger.showSnackBar(
-                          //       SnackBar(content: Text('Isi Nama Lengkap')));
-                          //   return;
-                          // } else if (_usernameController.text.isEmpty) {
-                          //   scaffoldMessenger.showSnackBar(
-                          //       SnackBar(content: Text('Isi Username')));
-                          //   return;
-                          // } else if (_passwordController.text.isEmpty) {
-                          //   scaffoldMessenger.showSnackBar(
-                          //       SnackBar(content: Text('Isi Password')));
-                          //   return;
-                          // } else if (_noHpController.text.isEmpty) {
-                          //   scaffoldMessenger.showSnackBar(
-                          //       SnackBar(content: Text('Isi No Hp')));
-                          //   return;
-                          // }
+                          if (isLoading) {
+                            return;
+                          }
+                          if (_namaLengkapController.text.isEmpty) {
+                            scaffoldMessenger.showSnackBar(
+                                SnackBar(content: Text('Isi Nama Lengkap')));
+                            return;
+                          } else if (_usernameController.text.isEmpty) {
+                            scaffoldMessenger.showSnackBar(
+                                SnackBar(content: Text('Isi Username')));
+                            return;
+                          } else if (_passwordController.text.isEmpty) {
+                            scaffoldMessenger.showSnackBar(
+                                SnackBar(content: Text('Isi Password')));
+                            return;
+                          } else if (_noHpController.text.isEmpty) {
+                            scaffoldMessenger.showSnackBar(
+                                SnackBar(content: Text('Isi No Hp')));
+                            return;
+                          }
 
-                          // updateUser(
-                          //     _namaLengkapController.text,
-                          //     _usernameController.text,
-                          //     _passwordController.text,
-                          //     _noHpController.text);
+                          updateUser(
+                              _namaLengkapController.text,
+                              _usernameController.text,
+                              _passwordController.text,
+                              _noHpController.text);
                         },
                         child: const Text('Simpan'),
                       ),
@@ -218,8 +251,11 @@ class _EditProfileState extends State<EditProfile> {
                         ),
                       ),
                       Container(
-                        padding:
-                            const EdgeInsets.only(top: 20, left: 50, right: 50),
+                        padding: const EdgeInsets.only(
+                          top: 20,
+                          left: 50,
+                          right: 50,
+                        ),
                         child: TextFormField(
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),

@@ -33,6 +33,49 @@ class _FormSignUpState extends State<FormSignUp> {
       automaticallyImplyLeading: false,
       title: Center(child: Text('Sign Up')),
     );
+
+    Future signUp(namaLengkap, username, password, noHp) async {
+      setState(() {
+        isLoading = true;
+      });
+
+      print('calling');
+
+      Map mapData = {
+        'nama_lengkap': namaLengkap,
+        'username': username,
+        'password': password,
+        'no_hp': noHp
+      };
+
+      print(mapData.toString());
+
+      http.Response response = await http.post(
+        Uri.parse(SIGNUP),
+        body: mapData,
+      );
+      var data = jsonDecode(response.body);
+
+      print("DATA: ${data}");
+
+      if (data['status'] == true) {
+        Fluttertoast.showToast(
+            msg: 'Register Berhasil',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1);
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (BuildContext ctx) => FormSignIn()));
+      } else {
+        Fluttertoast.showToast(
+            msg: data['message'],
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1);
+      }
+    }
+
+    //
     return Scaffold(
         appBar: appBar,
         resizeToAvoidBottomInset: false,
@@ -55,8 +98,9 @@ class _FormSignUpState extends State<FormSignUp> {
                     namaLengkap = val!;
                   },
                   decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      label: Text('Nama Lengkap')),
+                    border: OutlineInputBorder(),
+                    label: Text('Nama Lengkap'),
+                  ),
                 ),
               ),
               Container(
@@ -67,7 +111,9 @@ class _FormSignUpState extends State<FormSignUp> {
                     username = val!;
                   },
                   decoration: InputDecoration(
-                      border: OutlineInputBorder(), label: Text('Username')),
+                    border: OutlineInputBorder(),
+                    label: Text('Username'),
+                  ),
                 ),
               ),
               Container(
@@ -162,46 +208,5 @@ class _FormSignUpState extends State<FormSignUp> {
             ],
           ),
         ));
-  }
-
-  Future signUp(namaLengkap, username, password, noHp) async {
-    setState(() {
-      isLoading = true;
-    });
-
-    print('calling');
-
-    Map mapData = {
-      'nama_lengkap': namaLengkap,
-      'username': username,
-      'password': password,
-      'no_hp': noHp
-    };
-
-    print(mapData.toString());
-
-    http.Response response = await http.post(
-      Uri.parse(SIGNUP),
-      body: mapData,
-    );
-    var data = jsonDecode(response.body);
-
-    print("DATA: ${data}");
-
-    if (data['status'] == true) {
-      Fluttertoast.showToast(
-          msg: 'Register Berhasil',
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1);
-      Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (BuildContext ctx) => FormSignIn()));
-    } else {
-      Fluttertoast.showToast(
-          msg: data['message'],
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1);
-    }
   }
 }
